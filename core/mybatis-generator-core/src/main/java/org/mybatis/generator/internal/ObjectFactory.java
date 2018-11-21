@@ -18,6 +18,8 @@ package org.mybatis.generator.internal;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,6 +166,12 @@ public class ObjectFactory {
 
         if (url == null) {
             url = ObjectFactory.class.getClassLoader().getResource(resource);
+        }
+
+        File file = new File(resource);
+        try {
+            url = file.toURL();
+        } catch (MalformedURLException e) {
         }
 
         return url;

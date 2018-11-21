@@ -261,6 +261,14 @@ public class MyBatisGeneratorConfigurationParser {
         String domainObjectName = attributes.getProperty("domainObjectName"); //$NON-NLS-1$
         if (stringHasValue(domainObjectName)) {
             tc.setDomainObjectName(domainObjectName);
+        } else if (stringHasValue(tableName)) {
+            // 去掉t_的表头，并添加Base前缀
+            String tn = tableName;
+            if (tableName.toLowerCase().startsWith("t_")) {
+                tn = underlineToCamel(tableName).substring(1);
+            }
+            domainObjectName = "Base" + tn;
+            tc.setDomainObjectName(domainObjectName);
         }
 
         String alias = attributes.getProperty("alias"); //$NON-NLS-1$
@@ -389,6 +397,31 @@ public class MyBatisGeneratorConfigurationParser {
                 parseColumnRenamingRule(tc, childNode);
             }
         }
+    }
+
+    /**
+     * 下划线转小驼峰
+     *
+     * @param param 下划线字符串
+     * @return 小驼峰1字符串
+     */
+    public static String underlineToCamel(String param) {
+        if (param == null || "".equals(param.trim())) {
+            return "";
+        }
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = param.charAt(i);
+            if (c == '_') {
+                if (++i < len) {
+                    sb.append(Character.toUpperCase(param.charAt(i)));
+                }
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 
     private void parseColumnOverride(TableConfiguration tc, Node node) {
