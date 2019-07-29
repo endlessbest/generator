@@ -262,7 +262,7 @@ public class MyBatisGeneratorConfigurationParser {
         if (stringHasValue(domainObjectName)) {
             tc.setDomainObjectName(domainObjectName);
         } else if (stringHasValue(tableName)) {
-            // È¥µôt_µÄ±íÍ·£¬²¢Ìí¼ÓBaseÇ°×º
+            // å»æ‰t_çš„è¡¨å¤´ï¼Œå¹¶æ·»åŠ Baseå‰ç¼€
             String tn = tableName;
             if (tableName.toLowerCase().startsWith("t_")) {
                 tn = underlineToCamel(tableName).substring(1);
@@ -400,10 +400,10 @@ public class MyBatisGeneratorConfigurationParser {
     }
 
     /**
-     * ÏÂ»®Ïß×ªĞ¡ÍÕ·å
+     * ä¸‹åˆ’çº¿è½¬å°é©¼å³°
      *
-     * @param param ÏÂ»®Ïß×Ö·û´®
-     * @return Ğ¡ÍÕ·å1×Ö·û´®
+     * @param param ä¸‹åˆ’çº¿å­—ç¬¦ä¸²
+     * @return å°é©¼å³°1å­—ç¬¦ä¸²
      */
     public static String underlineToCamel(String param) {
         if (param == null || "".equals(param.trim())) {
