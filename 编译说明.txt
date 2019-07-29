@@ -1,0 +1,2 @@
+1. ½øÈëcore/mybatis-generator-core
+2. mvn clean install -Dmaven.test.skip=true

@@ -264,9 +264,10 @@ public class MyBatisGeneratorConfigurationParser {
         } else if (stringHasValue(tableName)) {
             // 去掉t_的表头，并添加Base前缀
             String tn = tableName;
-            if (tableName.toLowerCase().startsWith("t_")) {
-                tn = underlineToCamel(tableName).substring(1);
+            if (!tableName.toLowerCase().startsWith("t_")) {
+                tableName = "t_" + tableName;
             }
+            tn = underlineToCamel(tableName).substring(1);
             domainObjectName = "Base" + tn;
             tc.setDomainObjectName(domainObjectName);
         }
